@@ -19,6 +19,8 @@ def emailbody(message):
 def getlink(message):
     for msg in message.split('\n'):
         temp=msg.split()
+        if(len(temp)==0):
+            continue
         if(temp[0]=='git' and temp[1]=='pull'):
             return temp[2]
 
@@ -34,7 +36,8 @@ try:
     print data
     print '\n\n\n\n'
     pattern = re.compile(r'^[^<]*<heroism.1993@gmail.com>$')
-    
+
+    data=['33']    
     for num in string.split(data[0]):
         print num
         print '\n\n\n\n\n'
@@ -42,7 +45,8 @@ try:
             typ,msg=mailbox.fetch(num,'(RFC822)')
             mailmsg=email.message_from_string(msg[0][1])
             if(pattern.match(mailmsg['FROM'])):
-                print getlink(emailbody(mailmsg))
+                print emailbody(mailmsg)
+                print getlink(str(emailbody(mailmsg)))
                 
         except Exception, e:
             print 'fetch error: %s' % e
